@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>register Page</title>
+</head>
+
+<body>
+  <form id="register">
+    <div>
+      <label>First Name:</label>
+      <input type="text" name="firstName">
+    </div>
+    <div>
+      <label>Last Name:</label>
+      <input type="text" name="lastName">
+    </div>
+    <div>
+      <label>bio:</label>
+      <textarea type="text" name="bio"></textarea>
+    </div>
+
+    <div>
+      <label>hobbies:</label>
+      <textarea type="text" name="hobbies"></textarea>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" name="password">
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    document.getElementById('register').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const firstName = event.target.firstName.value;
+      const hobbies = event.target.hobbies.value;
+      const bio = event.target.bio.value;
+      const lastName = event.target.lastName.value;
+      const password = event.target.password.value;
+      const body = {
+        password: password,
+        bio: bio,
+        hobbies: hobbies,
+        firstName: firstName,
+        lastName: lastName,
+      }
+
+      fetch('/api/user', {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+    })
+  </script>
+
+</body>
+
+</html>

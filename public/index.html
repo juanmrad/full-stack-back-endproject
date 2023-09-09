@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+</head>
+
+<body>
+  <form id="login">
+    <div>
+      <label>Email:</label>
+      <input type="text" name="email">
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" name="password">
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    document.getElementById('login').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const email = event.target.email.value;
+      const password = event.target.password.value;
+      const body = {
+        email: email,
+        password: password
+      }
+
+      fetch('/api/login', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+    })
+  </script>
+
+</body>
+
+</html>
